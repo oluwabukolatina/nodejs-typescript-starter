@@ -6,12 +6,13 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.ts",
-    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,ts}' --quiet --fix",
-    "lint:ts": "eslint --ext=jsx,ts,tsx src",
+    "dev": "nodemon src/bin/server.ts",
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts}' --quiet --fix",
+    "lint:ts": "eslint --ext=jsx,ts src",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "start": "npm run build && node build/index"
+    "start": "npm run build && node build/bin/server.js"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
