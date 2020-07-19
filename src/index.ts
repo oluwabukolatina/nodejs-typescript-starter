@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { connect } from 'mongoose';
 import morgan from 'morgan';
 /**
@@ -20,7 +19,6 @@ if (!process.env.PORT) {
 // const PORT: number = parseInt(process.env.APP_PORT as string, 10) || 3000;
 const PORT: string|number = process.env.PORT || 3000;
 const DB = String(process.env.APP_DB);
-console.log(PORT);
 const app = express();
 
 /**
@@ -44,7 +42,7 @@ app.listen(PORT, () => {
       useUnifiedTopology: true,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     // eslint-disable-next-line no-console
-    }).then(() => { console.log('connected nedy'); })
+    }).then(() => { console.log('connected'); })
     // eslint-disable-next-line @typescript-eslint/no-empty-function
       .catch(() => { });
   } catch (error) {
