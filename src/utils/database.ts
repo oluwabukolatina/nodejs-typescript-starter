@@ -8,7 +8,6 @@ async function connectToDb() {
   try {
     return await connect(DB, {
       useNewUrlParser: true,
-      useCreateIndex: true,
       useUnifiedTopology: true,
     });
   } catch (error) {
