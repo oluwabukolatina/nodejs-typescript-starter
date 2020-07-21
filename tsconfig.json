@@ -81,4 +81,7 @@
   "exclude": [
     "tests"
 ],
+"include": [
+  "src/**/*"
+],
 }
