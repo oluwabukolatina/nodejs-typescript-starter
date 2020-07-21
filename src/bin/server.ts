@@ -1,4 +1,4 @@
-import { app } from '../index';
+import app from '../app';
 import db from '../utils/database';
 /**
  * App Variables

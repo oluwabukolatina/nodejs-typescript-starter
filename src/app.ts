@@ -25,8 +25,7 @@ app.use(morgan('dev'));
  * Server Activation
  */
 
-// eslint-disable-next-line no-console
 app.get('/', (req, res) => res.send('Hello Node/Typescript starter!'));
-// eslint-disable-next-line consistent-return
+export default app;
 // eslint-disable-next-line import/prefer-default-export
-export { app };
+// export { app }
