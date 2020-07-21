@@ -1,7 +1,7 @@
 import chai from 'chai';
 import 'chai/register-should';
 import chaiHttp from 'chai-http';
-import app from '../src/app';
+import app from '../app';
 
 chai.use(chaiHttp);
 
@@ -10,7 +10,6 @@ describe('Hello API Request', () => {
     .request(app)
     .get('/')
     .then((res) => {
-      console.log(res.text);
       chai.expect(res.text).to.eql('Hello Node/Typescript starter!');
     }));
 });
