@@ -1,17 +1,15 @@
 import * as chai from 'chai';
 import app from '../src/app';
-
 import 'mocha';
 import chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Hello API Request', () => {
-  it('should return hello on call', async () => chai
-    .request(app)
-    .get('/')
+describe('Test', () => {
+  it('should return response on call of base url /', () => chai.request(app).get('/')
     .then((res) => {
-      chai.expect(res.text).to.eql('hello');
+      console.log(res.text);
+      chai.expect(res.text).to.eql('Hello Node/Typescript starter!');
     }));
 });

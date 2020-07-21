@@ -10,7 +10,7 @@
     "lint:ts": "eslint --ext=jsx,ts src",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "start": "npm run build && node build/bin/server.js",
-    "test": "mocha tests/**.ts"
+    "test": "mocha -r ts-node/register tests/**.ts"
   },
   "keywords": [],
   "author": "",
