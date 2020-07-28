@@ -37,6 +37,8 @@ API Documentation generated with [swagger](https://enigmatic-wildwood-43336.hero
 
 - Clone this project to your local machine `https://github.com/oluwabukolatina/nodejs-typescript-starter.git`
 
+- Update example env file with your own details
+
 #### Setup
 
 - Installing the project dependencies
