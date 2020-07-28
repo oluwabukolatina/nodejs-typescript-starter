@@ -2,17 +2,21 @@
          "root": true,
          "parser": "@typescript-eslint/parser",
          "plugins": [
-                  "@typescript-eslint"
+                  "@typescript-eslint",
+                  "prettier"
+
          ],
          "extends": [
                   "airbnb-base",
                   "eslint:recommended",
                   "plugin:@typescript-eslint/eslint-recommended",
-                  "plugin:@typescript-eslint/recommended"
+                  "plugin:@typescript-eslint/recommended",
+                  "prettier"
          ],
          "rules": {
                   "no-console": 2,
                   "import/no-unresolved": "off",
-                  "import/extensions": "off"
+                  "import/extensions": "off",
+                  "prettier/prettier": 2
          }
 }
