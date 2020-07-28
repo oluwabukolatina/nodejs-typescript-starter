@@ -2,21 +2,24 @@
          "root": true,
          "parser": "@typescript-eslint/parser",
          "plugins": [
-                  "@typescript-eslint",
-                  "prettier"
-
+           "@typescript-eslint",
+           "prettier"
          ],
          "extends": [
-                  "airbnb-base",
-                  "eslint:recommended",
-                  "plugin:@typescript-eslint/eslint-recommended",
-                  "plugin:@typescript-eslint/recommended",
-                  "prettier"
+           "airbnb-base",
+           "eslint:recommended",
+           "plugin:@typescript-eslint/eslint-recommended",
+           "plugin:@typescript-eslint/recommended",
+           "prettier"
          ],
          "rules": {
-                  "no-console": 2,
-                  "import/no-unresolved": "off",
-                  "import/extensions": "off",
-                  "prettier/prettier": 2
+           "max-len": ["error", {
+             "code": 120
+           }],
+           "no-console": 2,
+           "import/no-unresolved": "off",
+           "import/extensions": "off",
+           "@typescript-eslint/explicit-module-boundary-types": "off",
+           "prettier/prettier": 2
          }
-}
+       }

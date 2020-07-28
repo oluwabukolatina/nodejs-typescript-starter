@@ -6,10 +6,11 @@ import app from '../app';
 chai.use(chaiHttp);
 
 describe('Hello API Request', () => {
-  it('should return response on call', () => chai
-    .request(app)
-    .get('/')
-    .then((res) => {
-      chai.expect(res.text).to.eql('Hello Node/Typescript starter!');
-    }));
+  it('should return response on call', () =>
+    chai
+      .request(app)
+      .get('/')
+      .then((res) => {
+        chai.expect(res.text).to.eql('Hello Node/Typescript starter!');
+      }));
 });
