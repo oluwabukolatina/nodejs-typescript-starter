@@ -5,6 +5,10 @@ import morgan from 'morgan';
 
 import * as dotenv from 'dotenv';
 import express from 'express';
+/**
+ * routes
+ */
+import DummyRoute from './v1/dummy/dummy.route';
 
 dotenv.config();
 
@@ -26,6 +30,7 @@ app.use(morgan('dev'));
  */
 
 app.get('/', (req, res) => res.send('Hello! Node/Typescript starter!'));
+app.use('/api/v1/dummy', DummyRoute);
 export default app;
 // eslint-disable-next-line import/prefer-default-export
 // export { app }
