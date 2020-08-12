@@ -1,6 +1,5 @@
 # NODE-TS-STARTER
 > nodejs, typescript starter(with mongodb)
-
 ## Getting Started
 
 >  [Technologies](#technologies-used) &middot; [Testing Tools](#testing-tools) &middot; [Installations](#installations) &middot; [API Endpoints](#api-endpoints) &middot; [Tests](#tests) &middot; [Acknowledgments](#acknowledgments) &middot; [Author](#author)
