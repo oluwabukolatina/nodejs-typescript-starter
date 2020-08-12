@@ -5,6 +5,10 @@ import morgan from 'morgan';
 
 import * as dotenv from 'dotenv';
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+
+import swaggerDocument from '../swagger.json';
+
 /**
  * routes
  */
@@ -17,8 +21,6 @@ dotenv.config();
  */
 const app = express();
 
-// const PORT: number = parseInt(process.env.APP_PORT as string, 10) || 3000;
-
 /**
  *  App Configuration
  */
@@ -30,7 +32,7 @@ app.use(morgan('dev'));
  */
 
 app.get('/', (req, res) => res.send('Hello! Node/Typescript starter!'));
-app.use('/api/v1/dummy', DummyRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const BASE_URL = `/api/v1/dummy`;
+app.use(`${BASE_URL}`, DummyRoute);
 export default app;
-// eslint-disable-next-line import/prefer-default-export
-// export { app }

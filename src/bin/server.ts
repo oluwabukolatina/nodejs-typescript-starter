@@ -6,7 +6,7 @@ import db from '../utils/database';
 if (!process.env.PORT) {
   process.exit(1);
 }
-const PORT = parseInt(process.env.PORT, 10) || 3000;
+const PORT: number = parseInt(process.env.PORT as string, 10) || 3000;
 app.listen(PORT, () => {
   db.connectToDb()
     // eslint-disable-next-line no-console
