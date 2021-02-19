@@ -1,38 +1,46 @@
 import morgan from 'morgan';
-/**
- * Required External Modules
- */
-
 import * as dotenv from 'dotenv';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-
+import * as winston from 'winston';
+import * as expressWinston from 'express-winston';
 import swaggerDocument from '../swagger.json';
+import DummyRoutes from './lib/components/v1/dummy/route/dummy.route';
 
 /**
  * routes
  */
-import DummyRoute from './v1/dummy/dummy.route';
-
 dotenv.config();
 
-/**
- * App Variables
- */
-const app = express();
+class App {
+  public app: express.Application;
 
-/**
- *  App Configuration
- */
-app.use(express.json());
-app.use(morgan('dev'));
+  public dummyRoutes: DummyRoutes = new DummyRoutes();
 
-/**
- * Server Activation
- */
+  constructor() {
+    this.app = express();
+    this.config();
+    this.dummyRoutes.routes(this.app);
+    this.app.get('/', (req, res) => res.send('Node Starter!'));
+    this.app.use(
+      '/api-docs',
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument),
+    );
+  }
 
-app.get('/', (req, res) => res.send('Hello! Node/Typescript starter!'));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-const BASE_URL = `/api/v1/dummy`;
-app.use(`${BASE_URL}`, DummyRoute);
-export default app;
+  private config = (): void => {
+    this.app.use(morgan('dev'));
+    this.app.use(
+      expressWinston.errorLogger({
+        transports: [new winston.transports.Console()],
+        format: winston.format.combine(
+          winston.format.colorize(),
+          winston.format.json(),
+        ),
+      }),
+    );
+  };
+}
+
+export default new App().app;

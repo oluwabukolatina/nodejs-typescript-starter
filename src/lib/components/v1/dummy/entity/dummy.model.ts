@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { IDummy } from './dummy.interface';
+import { IDummy } from '../interface/dummy.interface';
 
 const DummySchema = new Schema(
   {

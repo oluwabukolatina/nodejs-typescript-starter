@@ -1,5 +1,5 @@
 import app from '../app';
-import db from '../utils/database';
+import db from '../lib/config/database/database';
 /**
  * App Variables
  */
