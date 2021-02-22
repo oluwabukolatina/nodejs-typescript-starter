@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ResponseHandler from '../../../../utils/errors/responseHandler';
+import ResponseHandler from '../../../../utils/errors/ResponseHandler';
 import DummyRepository from '../repository/dummy.repository';
 
 class DummyController {

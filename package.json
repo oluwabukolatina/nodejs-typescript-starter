@@ -10,7 +10,7 @@
     "lint:ts": "eslint --ext=jsx,ts src",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "start": "npm run build && node build/src/bin/server.js",
-    "test": "mocha -r ts-node/register tests/**.ts",
+    "test": "mocha -r ts-node/register test/**.ts",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\""
   },

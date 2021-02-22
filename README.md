@@ -61,7 +61,7 @@ API Documentation generated with [swagger](https://enigmatic-wildwood-43336.hero
 - Run test for all endpoints
   > run the command below
   ```shell
-  $ npm tests
+  $ npm test
   ```
 ## Author
 - [Tina](https://github.com/oluwabukolatina)

@@ -5,7 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import swaggerDocument from '../swagger.json';
-import DummyRoutes from './lib/components/v1/dummy/route/dummy.route';
+import DummyRoutes from './lib/v1/components/modules/dummy/route/dummy.route';
 
 /**
  * routes
