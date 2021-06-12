@@ -1,15 +1,14 @@
-import morgan from 'morgan';
-import * as dotenv from 'dotenv';
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import * as winston from 'winston';
-import * as expressWinston from 'express-winston';
-import swaggerDocument from '../swagger.json';
-import DummyRoutes from './lib/v1/components/modules/dummy/route/dummy.route';
+import morgan from 'morgan';
 
-/**
- * routes
- */
+import * as dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+import swaggerDocument from '../swagger.json';
+import DummyRoutes from './modules/dummy/route/dummy.route';
+
 dotenv.config();
 
 class App {
@@ -21,7 +20,10 @@ class App {
     this.app = express();
     this.config();
     this.dummyRoutes.routes(this.app);
-    this.app.get('/', (req, res) => res.send('Node Starter!'));
+    this.app.disable('x-powered-by');
+    this.app.get('/', (req, res) =>
+      res.send('Hello! Welcome!'),
+    );
     this.app.use(
       '/api-docs',
       swaggerUi.serve,
@@ -30,16 +32,11 @@ class App {
   }
 
   private config = (): void => {
+    this.app.use(helmet());
+    this.app.use(mongoSanitize());
+    this.app.use(cors());
+    this.app.use(express.json());
     this.app.use(morgan('dev'));
-    this.app.use(
-      expressWinston.errorLogger({
-        transports: [new winston.transports.Console()],
-        format: winston.format.combine(
-          winston.format.colorize(),
-          winston.format.json(),
-        ),
-      }),
-    );
   };
 }
 

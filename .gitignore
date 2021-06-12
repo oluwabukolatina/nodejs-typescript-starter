@@ -3,3 +3,8 @@ npm-debug.log
 .DS_Store
 /*.env
 /build
+/.idea
+/logs
+/debug.log
+/logs/combined.log
+

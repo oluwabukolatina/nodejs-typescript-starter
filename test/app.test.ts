@@ -1,15 +1,15 @@
 import request from 'supertest';
-import { expect } from 'chai';
+import { HTTP_OK } from '../src/utils/status-codes/http-status-codes';
 import app from '../src/app';
 
-describe('home test', () => {
-  it('should return appropiate message', () => {
+describe('home', () => {
+  it('appropriate message', (done) => {
     request(app)
       .get('/')
-      .expect(200)
-      .end((err: Error, res) => {
-        if (err) throw err;
-        expect(res.text).to.eql('Node Starter!');
+      .end((err, res) => {
+        expect(res.status).toEqual(HTTP_OK);
+        expect(res.text).toEqual('Hello! Welcome!');
+        done();
       });
   });
 });
