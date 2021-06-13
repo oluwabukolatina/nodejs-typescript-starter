@@ -1,7 +1,21 @@
 import winston from 'winston';
-import { ENVIRONMENT } from './secrets';
+import { ENVIRONMENT, LOGS_DB } from './secrets';
+import { MongoDB } from "winston-mongodb";
 
-const format = winston.format.cli({
+const {
+  json,
+  prettyPrint,
+  splat,
+  simple,
+  timestamp,
+  printf,
+  cli,
+  combine,
+  colorize,
+  label,
+} = winston.format;
+const { transports, createLogger } = winston;
+const format = cli({
   colors: {
     info: 'blue',
     error: 'red',
@@ -20,31 +34,51 @@ const levels = {
   http: 3,
   debug: 4,
 };
+const mongoOptions = {
+  db:LOGS_DB,
+  // level: process.env.LOGGING_LEVEL,
+  // name: 'mongodb',
+  collection: 'logs',
+  decolorize: true,
+  tryReconnect: true,
+  options: {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  },
+};
 
 const options: winston.LoggerOptions = {
   levels,
   level: level(),
   transports: [
-    new winston.transports.Console({
+
+    new MongoDB(mongoOptions),
+    new transports.Console({
       level: ENVIRONMENT === 'production' ? 'error' : 'debug',
       format,
     }),
-    new winston.transports.File({ filename: 'logs/debug.log', level: 'error' }),
-    new winston.transports.File({ filename: 'logs/combined.log' }),
+    new transports.File({ filename: 'logs/debug.log', level: 'error' }),
+    new transports.File({ filename: 'logs/combined.log' }),
+
   ],
-  format: winston.format.combine(
-    winston.format.colorize({ all: true }),
-    winston.format.json(),
-    winston.format.prettyPrint(),
-    winston.format.splat(),
-    winston.format.simple(),
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-    winston.format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+  format: combine(
+    colorize({ all: true }),
+    label({
+      label: 'Label🏷️'
+    }),
+    json(),
+    prettyPrint(),
+    splat(),
+    simple(),
+    timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+    printf(
+      (info) =>
+        `${info.level}: ${info.label}: ${[info.timestamp]}: ${info.message}`,
     ),
   ),
 };
-const logger = winston.createLogger(options);
+
+const logger = createLogger(options);
 if (ENVIRONMENT !== 'production') {
   logger.debug('Logging initialized at debug level');
 }

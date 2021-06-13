@@ -3,7 +3,7 @@ import fs from 'fs';
 import logger from './logger';
 
 if (fs.existsSync('.env')) {
-  logger.debug('Using .env file to supply config environment variables');
+  // logger.debug('Using .env file to supply config environment variables');
   dotenv.config({ path: '.env' });
 }
 function throwIfUndefined<T>(secret: T | undefined, name?: string): T {
@@ -15,3 +15,4 @@ function throwIfUndefined<T>(secret: T | undefined, name?: string): T {
 }
 export const ENVIRONMENT = process.env.NODE_ENV;
 export const APP_DB = throwIfUndefined(process.env.APP_DB, 'APP_DB');
+export const LOGS_DB=throwIfUndefined(process.env.LOGS_DB, 'LOGS_DB')

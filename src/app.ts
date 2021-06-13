@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import swaggerDocument from '../swagger.json';
 import DummyRoutes from './modules/dummy/route/dummy.route';
+import logger from './config/logger';
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ class App {
     this.app.disable('x-powered-by');
     this.app.get('/', (req, res) =>
       res.send('Hello! Welcome!'),
-    );
+    )
     this.app.use(
       '/api-docs',
       swaggerUi.serve,
