@@ -1,6 +1,5 @@
 import express from 'express';
 import morgan from 'morgan';
-
 import * as dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
@@ -8,7 +7,6 @@ import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import swaggerDocument from '../swagger.json';
 import DummyRoutes from './modules/dummy/route/dummy.route';
-import logger from './config/logger';
 
 dotenv.config();
 
