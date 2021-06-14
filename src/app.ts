@@ -22,9 +22,7 @@ class App {
     this.config();
     this.dummyRoutes.routes(this.app);
     this.app.disable('x-powered-by');
-    this.app.get('/', (req, res) =>
-      res.send('Hello! Welcome!'),
-    )
+    this.app.get('/', (req, res) => res.send('Hello! Welcome!'));
     this.app.use(
       '/api-docs',
       swaggerUi.serve,

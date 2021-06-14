@@ -15,4 +15,4 @@ function throwIfUndefined<T>(secret: T | undefined, name?: string): T {
 }
 export const ENVIRONMENT = process.env.NODE_ENV;
 export const APP_DB = throwIfUndefined(process.env.APP_DB, 'APP_DB');
-export const LOGS_DB=throwIfUndefined(process.env.LOGS_DB, 'LOGS_DB')
+export const LOGS_DB = throwIfUndefined(process.env.LOGS_DB, 'LOGS_DB');

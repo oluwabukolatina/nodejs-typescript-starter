@@ -1,6 +1,6 @@
 import winston from 'winston';
+import { MongoDB } from 'winston-mongodb';
 import { ENVIRONMENT, LOGS_DB } from './secrets';
-import { MongoDB } from "winston-mongodb";
 
 const {
   json,
@@ -35,7 +35,7 @@ const levels = {
   debug: 4,
 };
 const mongoOptions = {
-  db:LOGS_DB,
+  db: LOGS_DB,
   // level: process.env.LOGGING_LEVEL,
   // name: 'mongodb',
   collection: 'logs',
@@ -51,7 +51,6 @@ const options: winston.LoggerOptions = {
   levels,
   level: level(),
   transports: [
-
     new MongoDB(mongoOptions),
     new transports.Console({
       level: ENVIRONMENT === 'production' ? 'error' : 'debug',
@@ -59,12 +58,11 @@ const options: winston.LoggerOptions = {
     }),
     new transports.File({ filename: 'logs/debug.log', level: 'error' }),
     new transports.File({ filename: 'logs/combined.log' }),
-
   ],
   format: combine(
     colorize({ all: true }),
     label({
-      label: 'Label🏷️'
+      label: 'Label🏷️',
     }),
     json(),
     prettyPrint(),
