@@ -1,6 +1,6 @@
-import winston from 'winston';
-import { MongoDB } from 'winston-mongodb';
-import { ENVIRONMENT, LOGS_DB } from './secrets';
+import winston, { LoggerOptions } from 'winston';
+import 'winston-daily-rotate-file';
+import { ENVIRONMENT } from './secrets';
 
 const {
   json,
@@ -13,6 +13,7 @@ const {
   combine,
   colorize,
   label,
+  align,
 } = winston.format;
 const { transports, createLogger } = winston;
 const format = cli({
@@ -21,9 +22,14 @@ const format = cli({
     error: 'red',
     warn: 'yellow',
     http: 'magenta',
-    debug: 'white',
+    debug: 'green',
   },
 });
+const timezone = () => {
+  return new Date().toLocaleString('en-GB', {
+    timeZone: 'Africa/Lagos',
+  });
+};
 const level = () => {
   return ENVIRONMENT === 'development' ? 'debug' : 'info';
 };
@@ -32,35 +38,53 @@ const levels = {
   warn: 1,
   info: 2,
   http: 3,
-  debug: 4,
+  verbose: 4,
+  debug: 5,
+  silly: 6,
 };
-const mongoOptions = {
-  db: LOGS_DB,
-  // level: process.env.LOGGING_LEVEL,
-  // name: 'mongodb',
-  collection: 'logs',
-  decolorize: true,
-  tryReconnect: true,
-  options: {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  },
-};
+// const mongoOptions = {
+//   db: String(`${TEST_DATABASE_URL}`),
+//   collection: 'logs',
+//   decolorize: true,
+//   tryReconnect: true,
+//   options: {
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true,
+//   },
+//   format: combine(
+//     timestamp(),
+//     // Convert logs to a json format
+//     json(),
+//   ),
+// };
 
-const options: winston.LoggerOptions = {
+const options: LoggerOptions = {
   levels,
   level: level(),
   transports: [
-    new MongoDB(mongoOptions),
+    // new MongoDB(mongoOptions),
     new transports.Console({
       level: ENVIRONMENT === 'production' ? 'error' : 'debug',
       format,
+      handleExceptions: true,
     }),
-        // - Write all logs with level `error` and below to `error.log`
-    // - Write all logs with level `info` and below to `combined.log`
-    //
-    new transports.File({ filename: 'logs/debug.log', level: 'error' }),
-    new transports.File({ filename: 'logs/combined.log' }),
+    new winston.transports.File({
+      filename: 'logs/server/error.log',
+      level: 'error',
+      handleExceptions: true,
+    }),
+    new winston.transports.File({
+      filename: 'logs/server/all.log',
+      level: 'info',
+      handleExceptions: true,
+    }),
+    new winston.transports.DailyRotateFile({
+      maxFiles: '14d',
+      level: 'info',
+      dirname: 'logs/server/daily',
+      datePattern: 'YYYY-MM-DD',
+      filename: '%DATE%.log',
+    }),
   ],
   format: combine(
     colorize({ all: true }),
@@ -71,17 +95,35 @@ const options: winston.LoggerOptions = {
     prettyPrint(),
     splat(),
     simple(),
-    timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+    align(),
+    //     timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+
+    timestamp({ format: timezone }),
     printf(
       (info) =>
-        `${info.level}: ${info.label}: ${[info.timestamp]}: ${info.message}`,
+        `${info.level}: ${info.message} -- ⏰ [${info.timestamp}] ${
+          info.label || ''
+        } `,
     ),
   ),
 };
 
 const logger = createLogger(options);
 if (ENVIRONMENT !== 'production') {
+  //   logger.error(`
+  //   status - ${HttpStatus.INTERNAL_SERVER_ERROR}
+  //   message - ${err.stack}
+  //   url - ${req.originalUrl}
+  //   method - ${req.method}
+  //   IP - ${req.ip}
+  //   timestamp - ${moment().format()}
+  // `);
   logger.debug('Logging initialized at debug level');
+  logger.add(
+    new transports.Console({
+      format: winston.format.simple(),
+    }),
+  );
 }
 
 export default logger;

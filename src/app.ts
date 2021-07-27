@@ -6,7 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import swaggerDocument from '../swagger.json';
-import DummyRoutes from './modules/dummy/route/dummy.route';
+import DummyRoutes from './module/dummy/route/dummy.route';
 
 dotenv.config();
 

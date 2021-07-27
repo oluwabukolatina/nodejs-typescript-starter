@@ -4,7 +4,6 @@ npm-debug.log
 /*.env
 /build
 /.idea
-/logs
 /debug.log
-/logs/combined.log
-
+package-lock.json
+coverage

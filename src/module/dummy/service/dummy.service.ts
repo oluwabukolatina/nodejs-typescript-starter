@@ -2,7 +2,7 @@
 import Model from '../entity/dummy.model';
 
 class DummyRepository {
-  public static async create(data: any) {
+  public static async create(data: { name: string }) {
     try {
       return await Model.create(data);
     } catch (e) {

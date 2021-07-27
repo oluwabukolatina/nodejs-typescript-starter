@@ -1,8 +1,8 @@
 import { connect, disconnect } from 'mongoose';
-import * as dotenv from 'dotenv';
-import { APP_DB, ENVIRONMENT } from '../secrets';
+import { ENVIRONMENT } from '../secrets';
 
-dotenv.config();
+const config = require('../config')[ENVIRONMENT];
+
 async function connectToDb() {
   try {
     const options = {
@@ -11,10 +11,7 @@ async function connectToDb() {
       useCreateIndex: true,
       useFindAndModify: false,
     };
-    return await connect(
-      ENVIRONMENT === 'development' ? String(process.env.LOCAL_DB) : APP_DB,
-      options,
-    );
+    return await connect(config.database, options);
   } catch (error) {
     return error;
   }
