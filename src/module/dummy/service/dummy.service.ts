@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Model from '../entity/dummy.model';
+import Model from '../model/dummy.model';
 
 class DummyRepository {
   public static async create(data: { name: string }) {
