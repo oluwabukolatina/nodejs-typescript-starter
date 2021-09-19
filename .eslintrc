@@ -1,12 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "security",
-    "prettier",
-    "mocha"
-  ],
+  "plugins": ["@typescript-eslint", "security", "prettier"],
   "extends": [
     "airbnb-base",
     "eslint:recommended",
@@ -19,11 +14,14 @@
     "max-len": [
       "error",
       {
-        "code": 140
+        "code": 350
       }
     ],
     "no-console": 2,
+    //    "import/no-unresolved": 2,
+    // "import/no-commonjs": 2,
     "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
     "import/extensions": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "prettier/prettier": 2,
@@ -31,50 +29,12 @@
     "no-explicit-any": "off",
     "no-multi-spaces": 2,
     "no-trailing-spaces": 2,
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "mocha/no-skipped-tests": "error",
-    "mocha/no-exclusive-tests": "error",
+    "quotes": ["error", "single"],
     //work in progress
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "comma-spacing": [
-      "error",
-      {
-        "before": false,
-        "after": true
-      }
-    ],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "linebreak-style": ["error", "unix"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
     //           "space-before-function-paren": ["error", "always"],
     "no-return-await": 2
-  },
-  "settings": {
-    "mocha/additionalCustomNames": [
-      {
-        "name": "describeModule",
-        "type": "suite",
-        "interfaces": [
-          "BDD"
-        ]
-      },
-      {
-        "name": "testModule",
-        "type": "testCase",
-        "interfaces": [
-          "TDD"
-        ]
-      }
-    ]
   }
 }

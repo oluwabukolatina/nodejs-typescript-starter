@@ -1,14 +1,15 @@
 import request from 'supertest';
-import { HTTP_OK } from '../src/utils/status-codes/http-status-codes';
-import app from '../src/app';
+import { StatusCodes } from 'http-status-codes';
+import app from '../src/bin/app';
 
 describe('home', () => {
   it('appropriate message', (done) => {
     request(app)
       .get('/')
       .end((err, res) => {
-        expect(res.status).toEqual(HTTP_OK);
-        expect(res.text).toEqual('Hello! Welcome!');
+        expect(res.status).toEqual(StatusCodes.OK);
+        expect(res.body.message).toEqual('Hello!');
+        expect(res.body.status).toEqual(true);
         done();
       });
   });

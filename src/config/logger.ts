@@ -1,6 +1,5 @@
-import winston, { LoggerOptions } from 'winston';
+import winston from 'winston';
 import 'winston-daily-rotate-file';
-import { ENVIRONMENT } from './secrets';
 
 const {
   json,
@@ -31,7 +30,7 @@ const timezone = () => {
   });
 };
 const level = () => {
-  return ENVIRONMENT === 'development' ? 'debug' : 'info';
+  return process.env.NODE_ENV === 'development' ? 'debug' : 'info';
 };
 const levels = {
   error: 0,
@@ -42,29 +41,13 @@ const levels = {
   debug: 5,
   silly: 6,
 };
-// const mongoOptions = {
-//   db: String(`${TEST_DATABASE_URL}`),
-//   collection: 'logs',
-//   decolorize: true,
-//   tryReconnect: true,
-//   options: {
-//     useUnifiedTopology: true,
-//     useNewUrlParser: true,
-//   },
-//   format: combine(
-//     timestamp(),
-//     // Convert logs to a json format
-//     json(),
-//   ),
-// };
 
-const options: LoggerOptions = {
+const options: winston.LoggerOptions = {
   levels,
   level: level(),
   transports: [
-    // new MongoDB(mongoOptions),
     new transports.Console({
-      level: ENVIRONMENT === 'production' ? 'error' : 'debug',
+      level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
       format,
       handleExceptions: true,
     }),
@@ -96,8 +79,6 @@ const options: LoggerOptions = {
     splat(),
     simple(),
     align(),
-    //     timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-
     timestamp({ format: timezone }),
     printf(
       (info) =>
@@ -109,16 +90,7 @@ const options: LoggerOptions = {
 };
 
 const logger = createLogger(options);
-if (ENVIRONMENT !== 'production') {
-  //   logger.error(`
-  //   status - ${HttpStatus.INTERNAL_SERVER_ERROR}
-  //   message - ${err.stack}
-  //   url - ${req.originalUrl}
-  //   method - ${req.method}
-  //   IP - ${req.ip}
-  //   timestamp - ${moment().format()}
-  // `);
-  logger.debug('Logging initialized at debug level');
+if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new transports.Console({
       format: winston.format.simple(),

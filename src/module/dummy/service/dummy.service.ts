@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Model from '../model/dummy.model';
 
-class DummyRepository {
+class DummyService {
   public static async create(data: { name: string }) {
     try {
       return await Model.create(data);
@@ -10,4 +9,4 @@ class DummyRepository {
     }
   }
 }
-export default DummyRepository;
+export default DummyService;

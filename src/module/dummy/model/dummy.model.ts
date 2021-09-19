@@ -3,7 +3,7 @@ import { IDummy } from '../interface/dummy.interface';
 
 const DummySchema = new Schema(
   {
-    dummy: String,
+    name: String,
   },
   { timestamps: true },
 );

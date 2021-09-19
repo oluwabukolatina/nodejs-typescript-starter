@@ -1,24 +1,31 @@
-import { Request, Response } from 'express';
-import HttpStatus from 'http-status-codes';
-import * as response from '../../../utils/responseHandler';
-import DummyRepository from '../service/dummy.service';
+import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import HttpException from '../../../utils/http-exception';
+import ResponseHandler from '../../../utils/response-handler';
+import DummyService from '../service/dummy.service';
+import Email from '../../../utils/email/email';
+import DummyEmailHelper from '../helper/email-helper';
 
 class DummyController {
-  public createDummy = async ({ body }: Request, res: Response) => {
+  public createDummy = async (
+    { body }: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
-      const dummy = await DummyRepository.create(body);
+      const dummy = await DummyService.create(body);
       if (!dummy) {
-        return response.errorResponse(res, 400, false, 'try again');
+        return next(new HttpException(StatusCodes.BAD_REQUEST, 'Not created'));
       }
-      return response.successResponse(
-        res,
-        HttpStatus.CREATED,
-        true,
-        'Created',
-        dummy,
+      await Email.sendEmail(
+        DummyEmailHelper.createNewDummyEmail({
+          name: dummy.name,
+          email: 'oluwabukolatina@gmail.com',
+        }),
       );
+      return ResponseHandler.CreatedResponse(res, 'Created', dummy);
     } catch (error) {
-      return response.errorResponse(res, 400, false, 'try again');
+      return next(error);
     }
   };
 }
