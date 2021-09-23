@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import ResponseHandler from '../utils/response-handler';
 import HttpException from '../utils/http-exception';
-import { StatusCodes } from 'http-status-codes';
+import logger from '../config/logger';
 // import logger from '../config/logger';
 
 function errorMiddleware(
@@ -12,13 +13,15 @@ function errorMiddleware(
 ) {
   const status = error.status || 500;
   const message = error.message.toString() || 'Something went wrong';
-  // logger.error(`status - ${status}, message - ${message},url - ${request.originalUrl},method - ${request.method},IP - ${request.ip}
-  //  `);
+  const err = error.error || null;
+  logger.error(
+    `status - ${status}, message - ${message},url - ${request.originalUrl},method - ${request.method},IP - ${request.ip}`,
+  );
 
   if (status === StatusCodes.BAD_REQUEST) {
-    return ResponseHandler.BadRequestResponse(response, message);
+    return ResponseHandler.BadRequestResponse(response, message, err);
   }
-  return ResponseHandler.ServerErrorResponse(response, status, message);
+  return ResponseHandler.ServerErrorResponse(response, status, message, err);
 }
 
 export default errorMiddleware;

@@ -3,7 +3,7 @@ import DummyController from '../controller/dummy.controller';
 import { CREATE_DUMMY_URL } from '../url/dummy.url';
 import DummyValidation from '../validation/dummy.validation';
 
-class DummyRoutes {
+class DummyRoute {
   public dummyController: DummyController = new DummyController();
 
   public routes = (app: Application): void => {
@@ -15,4 +15,4 @@ class DummyRoutes {
       );
   };
 }
-export default DummyRoutes;
+export default DummyRoute;

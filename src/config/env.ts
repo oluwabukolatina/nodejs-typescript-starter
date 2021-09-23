@@ -1,6 +1,6 @@
 module.exports = {
   development: {
-    database: process.env.STARTER_DATABASE_URL,
+    database: process.env.STARTER_DEV_DATABASE_URL,
     emailUserName: process.env.STARTER_DEV_GMAIL_USERNAME,
     emailPassword: process.env.STARTER_DEV_GMAIL_PASSWORD,
   },

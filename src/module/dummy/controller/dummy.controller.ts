@@ -3,8 +3,6 @@ import { StatusCodes } from 'http-status-codes';
 import HttpException from '../../../utils/http-exception';
 import ResponseHandler from '../../../utils/response-handler';
 import DummyService from '../service/dummy.service';
-import Email from '../../../utils/email/email';
-import DummyEmailHelper from '../helper/email-helper';
 
 class DummyController {
   public createDummy = async (
@@ -17,12 +15,6 @@ class DummyController {
       if (!dummy) {
         return next(new HttpException(StatusCodes.BAD_REQUEST, 'Not created'));
       }
-      await Email.sendEmail(
-        DummyEmailHelper.createNewDummyEmail({
-          name: dummy.name,
-          email: 'oluwabukolatina@gmail.com',
-        }),
-      );
       return ResponseHandler.CreatedResponse(res, 'Created', dummy);
     } catch (error) {
       return next(error);

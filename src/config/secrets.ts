@@ -15,8 +15,27 @@ function throwIfUndefined<T>(secret: T | undefined, name?: string): T {
 }
 export const ENVIRONMENT = throwIfUndefined(process.env.NODE_ENV, 'NODE_ENV');
 
-throwIfUndefined(process.env.STARTER_DATABASE_URL, 'STARTER_DATABASE_URL');
+throwIfUndefined(
+  process.env.STARTER_DEV_DATABASE_URL,
+  'STARTER_DEV_DATABASE_URL',
+);
 throwIfUndefined(
   process.env.STARTER_TEST_DATABASE_URL,
   'STARTER_TEST_DATABASE_URL',
+);
+export const STARTER_JWT_SECRET = throwIfUndefined(
+  process.env.STARTER_JWT_TOKEN,
+  'STARTER_JWT_TOKEN',
+);
+export const STARTER_JWT_EXPIRY = throwIfUndefined(
+  process.env.STARTER_JWT_EXPIRY,
+  'STARTER_JWT_EXPIRY',
+);
+throwIfUndefined(
+  process.env.STARTER_DEV_GMAIL_USERNAME,
+  'STARTER_DEV_GMAIL_USERNAME',
+);
+throwIfUndefined(
+  process.env.STARTER_DEV_GMAIL_PASSWORD,
+  'STARTER_DEV_GMAIL_PASSWORD',
 );

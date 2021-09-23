@@ -11,8 +11,6 @@ export interface IMailDetails {
 const Email = {
   async sendWithNodemailer(options: IMailDetails) {
     return transporter.sendMail(options, (err, info) => {
-      console.log('err', err);
-      console.log('info', info);
       if (err) {
         logger.error(err);
       } else {

@@ -1,12 +1,11 @@
 import nodemailer from 'nodemailer';
-import * as secrets from '../config/secrets';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.mailtrap.io',
   port: 2525,
   auth: {
-    user: secrets.MAIL_TRAP_USER,
-    pass: secrets.MAIL_TRAP_PASSWORD,
+    user: process.env.STARTER_DEV_GMAIL_USERNAME,
+    pass: process.env.STARTER_DEV_GMAIL_PASSWORD,
   },
 
   secure: false,

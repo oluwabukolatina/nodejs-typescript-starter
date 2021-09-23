@@ -6,22 +6,25 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import swaggerDocument from '../../swagger.json';
-import DummyRoutes from '../module/dummy/route/dummy.route';
 import notFoundMiddleware from '../middleware/not-found.middleware';
 import errorMiddleware from '../middleware/error.middleware';
 import welcomeMessage from '../middleware/welcome.middleware';
+import DummyRoute from '../module/dummy/route/dummy.route';
+import AuthRoute from '../module/auth/route/auth.route';
 
 dotenv.config();
 
 class App {
   public app: express.Application;
 
-  public dummyRoutes: DummyRoutes = new DummyRoutes();
+  public dummyRoute: DummyRoute = new DummyRoute();
+  public authRoute: AuthRoute = new AuthRoute();
 
   constructor() {
     this.app = express();
     this.config();
-    this.dummyRoutes.routes(this.app);
+    this.dummyRoute.routes(this.app);
+    this.authRoute.routes(this.app);
     this.app.disable('x-powered-by');
     this.app.get('/', welcomeMessage);
     this.app.use(
