@@ -3,15 +3,16 @@ import { ENVIRONMENT } from '../config/secrets';
 
 const env = require('../config/env')[String(ENVIRONMENT)];
 
-async function connectToDb() {
+export const connectToDatabase = async () => {
   return connect(env.database, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   });
-}
+};
+
 async function disconnectFromDB() {
   return disconnect();
 }
-export default { connectToDb, disconnectFromDB };
+export default { connectToDatabase, disconnectFromDB };

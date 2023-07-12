@@ -1,5 +1,6 @@
-import { Document } from 'mongoose';
+import { Types } from 'mongoose';
 
-export interface IDummy extends Document {
+export interface DummyInterface {
+  _id: Types.ObjectId;
   name: string;
 }

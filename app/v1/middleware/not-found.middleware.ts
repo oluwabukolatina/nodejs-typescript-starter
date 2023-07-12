@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
+import CustomError from '../exception/custom-error';
 import { StatusCodes } from 'http-status-codes';
-import HttpException from '../exception/http-exception';
 
 function notFoundMiddleware(
   request: Request,
@@ -8,7 +8,7 @@ function notFoundMiddleware(
   next: NextFunction,
 ) {
   return next(
-    new HttpException(
+    new CustomError(
       StatusCodes.NOT_FOUND,
       `${request.originalUrl} does not exist`,
     ),

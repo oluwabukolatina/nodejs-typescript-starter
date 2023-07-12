@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
-import logger from '../utils/logger';
+import logger from '../lib/logger';
 
 if (fs.existsSync('.env')) {
   logger.debug('Using .env file to supply config environment variables');
@@ -25,5 +25,11 @@ export const JWT_EXPIRY = throwIfUndefined(
   process.env.JWT_EXPIRY,
   'JWT_EXPIRY',
 );
-throwIfUndefined(process.env.GMAIL_USERNAME, 'GMAIL_USERNAME');
-throwIfUndefined(process.env.GMAIL_PASSWORD, 'GMAIL_PASSWORD');
+export const MAIL_TRAP_USERNAME = throwIfUndefined(
+  process.env.MAIL_TRAP_USERNAME,
+  'MAIL_TRAP_USERNAME',
+);
+export const MAIL_TRAP_PASSWORD = throwIfUndefined(
+  process.env.MAIL_TRAP_PASSWORD,
+  'MAIL_TRAP_PASSWORD',
+);

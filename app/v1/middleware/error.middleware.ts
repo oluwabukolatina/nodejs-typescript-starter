@@ -1,12 +1,12 @@
+import CustomError from '../exception/custom-error';
 import { NextFunction, Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import HttpException from '../exception/http-exception';
-import logger from '../utils/logger';
 import { ENVIRONMENT } from '../config/secrets';
-import ResponseHandler from '../utils/response-handler';
+import logger from '../lib/logger';
+import { StatusCodes } from 'http-status-codes';
+import ResponseHandler from '../lib/response-handler';
 
 function errorMiddleware(
-  error: HttpException,
+  error: CustomError,
   request: Request,
   response: Response,
   next: NextFunction,
@@ -23,7 +23,6 @@ function errorMiddleware(
       }, METHOD - ${request.method}, IP - ${request.ip}`,
     );
   }
-
   if (status === StatusCodes.BAD_REQUEST) {
     return ResponseHandler.BadRequestResponse(response, message, err);
   }

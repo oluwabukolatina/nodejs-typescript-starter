@@ -1,24 +1,30 @@
 import { NextFunction, Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import HttpException from '../exception/http-exception';
+import Helper from '../lib/helper';
+import { ClientError } from '../exception/client.error';
+import { UnknownInterface } from '../lib/unknown.interface';
 
 const AppValidation = {
-  async bodyBaseValidator(
-    schema: any,
-    req: Request,
-    res: Response,
+  async idValidator(
     next: NextFunction,
+    response: Response,
+    id: UnknownInterface,
+  ) {
+    if (Helper.validObjectId(id)) {
+      return next();
+    }
+    return next(new ClientError('Incorrect Id Format, Kindly Check The Id'));
+  },
+  async bodyBaseValidator(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+    schema: UnknownInterface,
   ) {
     try {
-      req.body = await schema.validateAsync(req.body);
+      request.body = await schema.validateAsync(request.body);
       return next();
     } catch (error) {
-      return next(
-        new HttpException(
-          StatusCodes.BAD_REQUEST,
-          error.message.replace(/["]/gi, ''),
-        ),
-      );
+      return next(new ClientError(error.message.replace(/["]/gi, '')));
     }
   },
 };

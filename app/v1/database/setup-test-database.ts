@@ -1,31 +1,17 @@
-import { connection } from 'mongoose';
-import database from './database';
+import { connectToDatabase } from './database';
+import logger from '../lib/logger';
 
 const setupTestDatabase = () => {
-  beforeAll((done) => {
-    database
-      .connectToDb()
-      .then(() => {
+  beforeAll(async (done) => {
+    await connectToDatabase()
+      .then(async (res) => {
+        await res.connection.db.dropDatabase();
         done();
       })
-      .catch(() => done());
-  });
-  beforeAll(async () => {
-    const { collections } = connection;
-    Object.keys(collections).forEach((e) => {
-      const collection = collections[e];
-      collection.deleteMany({});
-    });
-  });
-  afterAll(async () => {
-    const { collections } = connection;
-    Object.keys(collections).forEach((e) => {
-      const collection = collections[e];
-      collection.deleteMany({});
-    });
-  });
-  afterAll(async () => {
-    await connection.close();
+      .catch((err) => {
+        logger.info(err);
+        done();
+      });
   });
 };
 

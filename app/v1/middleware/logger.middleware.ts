@@ -1,8 +1,8 @@
 import { Request } from 'express';
-import HttpException from '../exception/http-exception';
-import logger from '../utils/logger';
+import logger from '../lib/logger';
+import CustomError from '../exception/custom-error';
 
-function loggerMiddleware(error: HttpException, request: Request) {
+function loggerMiddleware(error: CustomError, request: Request) {
   const status = error.status || 500;
   logger.info(
     `status - ${status}, url - ${request.originalUrl}, method - ${

@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
+import { UnknownInterface } from '../lib/unknown.interface';
 
 const Jwt = {
-  createToken(payload: any, secret: jwt.Secret, expiry: string) {
+  createToken(payload: UnknownInterface, secret: jwt.Secret, expiry: string) {
     return jwt.sign(payload, secret, {
       expiresIn: expiry,
     });

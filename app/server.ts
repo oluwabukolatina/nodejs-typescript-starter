@@ -1,7 +1,7 @@
 import app from './app';
-import logger from './v1/utils/logger';
+import logger from './v1/lib/logger';
 import database from './v1/database/database';
-import Email from './v1/utils/email/email';
+import Email from './v1/lib/email/email';
 import { ENVIRONMENT } from './v1/config/secrets';
 
 const env = require('./v1/config/env')[String(ENVIRONMENT)];

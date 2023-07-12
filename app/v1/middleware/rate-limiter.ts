@@ -1,6 +1,5 @@
 import rateLimit from 'express-rate-limit';
-import { StatusCodes } from 'http-status-codes';
-import HttpException from '../exception/http-exception';
+import { ClientError } from '../exception/client.error';
 
 const maxRequest = 5;
 const rateLimiter = rateLimit({
@@ -13,10 +12,7 @@ const rateLimiter = rateLimit({
 
   handler(req, res, next) {
     return next(
-      new HttpException(
-        StatusCodes.BAD_REQUEST,
-        `You have exceeded the ${maxRequest} requests`,
-      ),
+      new ClientError(`You have exceeded the ${maxRequest} requests`),
     );
   },
 });

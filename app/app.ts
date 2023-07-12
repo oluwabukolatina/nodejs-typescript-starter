@@ -10,10 +10,10 @@ import swaggerDocument from '../swagger.json';
 import notFoundMiddleware from './v1/middleware/not-found.middleware';
 import errorMiddleware from './v1/middleware/error.middleware';
 import welcomeMessage from './v1/middleware/welcome.middleware';
-import DummyRoute from './v1/component/dummy/route/dummy.route';
-import AuthRoute from './v1/component/auth/route/auth.route';
+import DummyRoute from './v1/component/dummy/dummy.route';
+import AuthRoute from './v1/component/auth/auth.route';
 import { ENVIRONMENT } from './v1/config/secrets';
-import { AUTH_URL } from './v1/utils/url/url';
+import { AUTH_URL } from './v1/lib/url/url';
 import rateLimiter from './v1/middleware/rate-limiter';
 
 dotenv.config();
