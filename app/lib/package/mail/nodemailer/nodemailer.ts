@@ -1,6 +1,6 @@
 import { transporter } from './nodemailer.config';
-import { MailInterface } from '../../../lib/email/email.interface';
-import logger from '../../../lib/logger';
+import { MailInterface } from '../../../email/email.interface';
+import logger from '../../../logger';
 
 const Nodemailer = {
   sendMail(options: MailInterface) {

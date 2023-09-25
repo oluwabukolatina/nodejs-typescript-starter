@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import {
   MAIL_TRAP_PASSWORD,
   MAIL_TRAP_USERNAME,
-} from '../../../config/secrets';
+} from '../../../../config/secrets';
 
 export const transporter = nodemailer.createTransport({
   host: 'smtp.mailtrap.io',

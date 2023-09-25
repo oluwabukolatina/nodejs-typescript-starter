@@ -1,10 +1,8 @@
 import { connect, disconnect } from 'mongoose';
-import { ENVIRONMENT } from '../config/secrets';
-
-const env = require('../config/env')[String(ENVIRONMENT)];
+import EnvHelper from '../config/env.helper';
 
 export const connectToDatabase = async () => {
-  return connect(env.database, {
+  return connect(EnvHelper.getDatabase(), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

@@ -1,13 +1,11 @@
-import { ENVIRONMENT } from '../../config/secrets';
-import EmailTemplatesHelper from '../../../html/helper/email-template.helper';
-
-const env = require('../../config/env')[String(ENVIRONMENT)];
+import EmailTemplatesHelper from '../../html/helper/email-template.helper';
+import EnvHelper from '../../config/env.helper';
 
 const AuthEmailHelper = {
   createWelcomeEmail(email: string) {
     return {
       subject: 'Welcome To Starter',
-      from: env.emailUserName,
+      from: EnvHelper.getEmailUsername(),
       to: email,
       html: EmailTemplatesHelper.generateTemplate(
         { email },

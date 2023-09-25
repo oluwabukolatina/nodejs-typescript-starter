@@ -1,6 +1,6 @@
 import { MailInterface } from './email.interface';
 import { ENVIRONMENT } from '../../config/secrets';
-import Nodemailer from '../../package/mail/nodemailer/nodemailer';
+import Nodemailer from '../package/mail/nodemailer/nodemailer';
 import logger from '../logger';
 
 const Email = {
