@@ -1,9 +1,9 @@
-import request from 'supertest';
-import { StatusCodes } from 'http-status-codes';
-import * as authUrl from '../../component/auth/auth.url';
-import TestUtils from '../../lib/mock-data';
-import app from '../../../app';
 import setupTestDatabase from '../../database/setup-test-database';
+import TestUtils from '../../lib/mock-data';
+import request from 'supertest';
+import * as authUrl from '../../component/auth/auth.url';
+import { StatusCodes } from 'http-status-codes';
+import app from '../../app';
 
 setupTestDatabase();
 describe('Auth', () => {

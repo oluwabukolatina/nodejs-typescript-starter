@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { UnAuthorizedError } from '../../exception/un-authorized.error';
-import Jwt from '../../package/jwt';
+import Jwt from '../../lib/package/jwt';
 import { JWT_SECRET } from '../../config/secrets';
 import { ClientError } from '../../exception/client.error';
 

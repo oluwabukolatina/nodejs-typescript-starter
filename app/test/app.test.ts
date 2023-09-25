@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
-import app from '../../app';
+import app from '../app';
 
 describe('home', () => {
   it('appropriate message', (done) => {

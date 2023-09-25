@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import UserRepository from '../user/repository/user.repository';
-import Bcrypt from '../../package/bcrypt';
-import Jwt from '../../package/jwt';
+import Bcrypt from '../../lib/package/bcrypt';
+import Jwt from '../../lib/package/jwt';
 import { JWT_EXPIRY, JWT_SECRET } from '../../config/secrets';
 import CustomError from '../../exception/custom-error';
 import ResponseHandler from '../../lib/response-handler';

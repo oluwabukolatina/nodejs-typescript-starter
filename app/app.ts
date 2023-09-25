@@ -1,20 +1,20 @@
-import express from 'express';
-import morgan from 'morgan';
 import * as dotenv from 'dotenv';
+import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
+import cors from 'cors';
+import morgan from 'morgan';
 import morganBody from 'morgan-body';
+import DummyRoute from './component/dummy/dummy.route';
+import AuthRoute from './component/auth/auth.route';
+import welcomeMessage from './middleware/welcome.middleware';
+import notFoundMiddleware from './middleware/not-found.middleware';
+import errorMiddleware from './middleware/error.middleware';
+import { ENVIRONMENT } from './config/secrets';
+import { AUTH_URL } from './lib/url/url';
+import rateLimiter from './middleware/rate-limiter';
 import swaggerDocument from '../swagger.json';
-import notFoundMiddleware from './v1/middleware/not-found.middleware';
-import errorMiddleware from './v1/middleware/error.middleware';
-import welcomeMessage from './v1/middleware/welcome.middleware';
-import DummyRoute from './v1/component/dummy/dummy.route';
-import AuthRoute from './v1/component/auth/auth.route';
-import { ENVIRONMENT } from './v1/config/secrets';
-import { AUTH_URL } from './v1/lib/url/url';
-import rateLimiter from './v1/middleware/rate-limiter';
 
 dotenv.config();
 

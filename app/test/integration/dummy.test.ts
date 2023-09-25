@@ -1,9 +1,9 @@
 import setupTestDatabase from '../../database/setup-test-database';
 import request from 'supertest';
-import app from '../../../app';
 import { CREATE_DUMMY_URL } from '../../component/dummy/dummy.url';
-import { StatusCodes } from 'http-status-codes';
 import MockData from '../../lib/mock-data';
+import { StatusCodes } from 'http-status-codes';
+import app from '../../app';
 
 setupTestDatabase();
 describe('dummy', () => {
